@@ -1,77 +1,41 @@
-class Node {
-  constructor(value) {
-     this.value = value;
-     this.left = null;
-    this.right = null;
-  }
-}
-
 class BinaryTree {
   constructor(value) {
-    this.root = null;
+    this.value = null;
+    this.left = null;
+    this.right = null;
 
     if (value) {
-      this.root = new Node(value);
+      this.value = value;
     }
   }
 
   add(value) {
-    const node = new Node(value);
+    const newNode = new BinaryTree(value);
 
-    if (this.root === null) {
-      this.root = node;
-      return node;
+    let queue = [];
+    queue.push(this);
+
+    while (true) {
+      let node  = queue.pop();
+      if (node.left === null) {
+        // if left child is null insert new node as left child
+        node.left = newNode;
+        return newNode;
+      } else {
+        // if there is a child available on left, add it to the queue.
+        // This node will be picked in case right child also have node
+        queue.unshift(node.left);
+      }
+      if (node.right === null) {
+        // if right child is null insert new node as left child
+        node.right = newNode;
+        return newNode;
+      } else {
+        // if there is a child available on right child, add it to the queue.
+        // This node will be picked in case child of left node are also filled
+        queue.unshift(node.right);
+      }
     }
-    //return this.addNode(this.root, node);
-    return this.addNode(this.root, node);
-
-  }
-
-//   addNode(root, newNode) {
-//     let node  = root;
-//     if (node.left === null) {
-//       node.left = newNode;
-//       return newNode;
-//     } else if (node.right === null) {
-//       node.right = newNode;
-//       return newNode;
-//     }
-
-//     let addedToLeft = this.addNode(node.left, newNode);
-
-//     if (!addedToLeft) {
-//       return this.addNode(node.right, newNode);
-//     }
-
-//     return addedToLeft;
-//   }
-// }
-
-addNode(root, newNode) {
-    let node  = root;
-    if (node.left === null) {
-      node.left = newNode;
-      return newNode;
-    } else if (node.right === null) {
-      node.right = newNode;
-      return newNode;
-    }
-
-    if (!node.left.left || !node.left.right) {
-      return this.addNode(node.left, newNode);
-    }
-
-    if(!node.right.left || !node.right.right) {
-      return this.addNode(node.right, newNode);
-    }
-
-    return this.addNode(node.left, newNode);
-
-    if (!addedToLeft) {
-      return this.addNode(node.right, newNode);
-    }
-
-    return addedToLeft;
   }
 }
 function printTree(root, level) {
@@ -82,16 +46,27 @@ function printTree(root, level) {
     printTree(root.right, index+1);
   }
 }
-const bt = new BinaryTree('r');
+const bt = new BinaryTree('0');
 
-bt.add('l1');
-bt.add('r1');
+bt.add('1');
+bt.add('2');
 
-bt.add('l1l2');
-bt.add('l1r2');
+bt.add('3');
+bt.add('4');
 
-bt.add('r1l2');
-bt.add('r1l2');
-console.log(printTree(bt.root));
+bt.add(5);
+bt.add(6);
+
+bt.add(7);
+bt.add(8);
+bt.add(9);
+bt.add(10);
+bt.add(11);
+bt.add(12);
+bt.add(13);
+bt.add(14);
+bt.add(15);
+
+console.log(printTree(bt));
 console.log(JSON.stringify(bt));
 
