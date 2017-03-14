@@ -13,15 +13,18 @@ class BinarySearchTree {
   }
 
   add(value) {
+    // if (this.value === null) {
+    //   this.value = value
+    // } else if (value <= this.value )
     if (value <= this.value) {
-      if(this.left === null){
+      if (this.left === null) {
         const newNode = new BinarySearchTree(value);
         this.left = newNode;
       } else {
         this.left.add(value);
       }
     } else {
-      if(this.right === null){
+      if (this.right === null) {
         const newNode = new BinarySearchTree(value);
         this.right = newNode;
       } else {
@@ -38,7 +41,7 @@ function printTree(root, level) {
     printTree(root.right, index+1);
   }
 }
-const bst = new BinarySearchTree(8);
+const bst = new BinarySearchTree();
 
 bst.add(1);
 bst.add(9);
