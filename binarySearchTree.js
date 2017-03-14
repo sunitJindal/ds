@@ -13,10 +13,9 @@ class BinarySearchTree {
   }
 
   add(value) {
-    // if (this.value === null) {
-    //   this.value = value
-    // } else if (value <= this.value )
-    if (value <= this.value) {
+    if (this.value === null) {
+      this.value = value
+    } else if (value <= this.value) {
       if (this.left === null) {
         const newNode = new BinarySearchTree(value);
         this.left = newNode;
@@ -43,7 +42,7 @@ function printTree(root, level) {
 }
 const bst = new BinarySearchTree();
 
-bst.add(1);
+bst.add(8);
 bst.add(9);
 
 bst.add(10);
