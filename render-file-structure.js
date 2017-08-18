@@ -45,21 +45,18 @@ const files = [{
   }]
 }];
 
-function traverseList(list, activeIndex) {
+const baseMarker = '|';
+const baseNestedMarker = '-'
+function traverseList(list, activeIndex, marker) {
   const selectedIndex = activeIndex || 0;
   let str = '';
-  let space = '|';
-  
-  for(let i = 0;i < selectedIndex; i++) {
-    space += '-';
-  };
+  let selectedMarker = marker || '|';
   
   list.forEach((entity, index) => {
-    
-    str += `${space}${entity.name}\n`;
+    str += `${selectedMarker}${entity.name}\n`;
     
     if (entity.type === 'dir') {
-      str += traverseList(entity.files, selectedIndex + 1)
+      str += traverseList(entity.files, selectedIndex + 1, selectedMarker + baseNestedMarker);
     }
   });
    return str;
